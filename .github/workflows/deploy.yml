@@ -47,9 +47,9 @@ jobs:
           else
             echo "Docker ya está instalado."
           fi
-          docker pull dssanguano/python-deployment-aws:qa
-          docker rm -f qa-python-app-container || true
-          docker run -d -p 5000:5000 --name qa-python-app-container dssanguano/python-deployment-aws:qa
+          sudo docker pull dssanguano/python-deployment-aws:qa
+          sudo docker rm -f qa-python-app-container || true
+          sudo docker run -d -p 5000:5000 --name qa-python-app-container dssanguano/python-deployment-aws:qa
           EOF
 
   deploy-main:
@@ -77,7 +77,7 @@ jobs:
           else
             echo "Docker ya está instalado."
           fi 
-          docker pull dssanguano/python-deployment-aws:main
-          docker rm -f main-python-app-container || true
-          docker run -d -p 5000:5000 --name main-python-app-container dssanguano/python-deployment-aws:main
+          sudo docker pull dssanguano/python-deployment-aws:main
+          sudo docker rm -f main-python-app-container || true
+          sudo docker run -d -p 5000:5000 --name main-python-app-container dssanguano/python-deployment-aws:main
           EOF
