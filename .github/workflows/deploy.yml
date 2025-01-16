@@ -36,6 +36,17 @@ jobs:
       - name: Deploy to QA Instance
         run: |
           ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/qa_key.pem ubuntu@ec2-54-90-125-142.compute-1.amazonaws.com << 'EOF'
+          if ! command -v docker &> /dev/null; then
+            echo "Docker no está instalado. Procediendo a instalar..."
+            sudo apt update
+            sudo apt install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            sudo usermod -aG docker ubuntu
+            echo "Docker instalado exitosamente."
+          else
+            echo "Docker ya está instalado."
+          fi
           docker pull dssanguano/python-deployment-aws:qa
           docker rm -f qa-python-app-container || true
           docker run -d -p 5000:5000 --name qa-python-app-container dssanguano/python-deployment-aws:qa
@@ -55,6 +66,17 @@ jobs:
       - name: Deploy to Main Instance
         run: |
           ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/main_key.pem ubuntu@ec2-54-90-125-142.compute-1.amazonaws.com << 'EOF'
+          if ! command -v docker &> /dev/null; then
+            echo "Docker no está instalado. Procediendo a instalar..."
+            sudo apt update
+            sudo apt install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            sudo usermod -aG docker ubuntu
+            echo "Docker instalado exitosamente."
+          else
+            echo "Docker ya está instalado."
+          fi
           docker pull dssanguano/python-deployment-aws:main
           docker rm -f main-python-app-container || true
           docker run -d -p 5000:5000 --name main-python-app-container dssanguano/python-deployment-aws:main
