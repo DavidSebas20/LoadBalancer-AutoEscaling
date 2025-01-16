@@ -76,7 +76,7 @@ jobs:
             echo "Docker instalado exitosamente."
           else
             echo "Docker ya está instalado."
-          fi
+          fi 
           docker pull dssanguano/python-deployment-aws:main
           docker rm -f main-python-app-container || true
           docker run -d -p 5000:5000 --name main-python-app-container dssanguano/python-deployment-aws:main
