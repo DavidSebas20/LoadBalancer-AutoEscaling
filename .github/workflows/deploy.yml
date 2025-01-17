@@ -35,7 +35,7 @@ jobs:
 
       - name: Deploy to QA Instance
         run: |
-          ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/qa_key.pem ubuntu@ec2-54-90-125-142.compute-1.amazonaws.com << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i /home/runner/.ssh/qa_key.pem ubuntu@QALoadBalancerAplication-886097c8085340c2.elb.us-east-1.amazonaws.com << 'EOF'
           if ! command -v docker &> /dev/null; then
             echo "Docker no está instalado. Procediendo a instalar..."
             sudo apt update
